@@ -1,0 +1,35 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('document_son',function (Blueprint $table){
+            $table->id();
+            $table->string('do_son_name',255);
+            $table->timestamps();
+            $table->unsignedBigInteger('documentID'); // Khóa ngoại tham chiếu đến bảng project
+            
+            // Định nghĩa khóa ngoại tham chiếu đến bảng project
+            $table->foreign('documentID')->references('id')->on('documents');
+            
+
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('document_son');
+    
+    }
+};
